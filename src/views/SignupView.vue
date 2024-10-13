@@ -6,6 +6,7 @@ import { useFormStore } from '@/stores/form'
 
 const formStore = useFormStore()
 const { formData } = storeToRefs(formStore)
+const { signUp } = formStore
 
 const form = ref<UserValidation>()
 
@@ -13,7 +14,7 @@ const validate = async () => {
   try {
     const data = await form.value?.validate()
 
-    if (data?.valid) formStore.signUp()
+    if (data?.valid) signUp()
   } catch (error) {
     throw error
   }

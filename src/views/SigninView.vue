@@ -6,6 +6,7 @@ import { useFormStore } from '@/stores/form'
 
 const formStore = useFormStore()
 const { formData } = storeToRefs(formStore)
+const { signIn } = formStore
 
 const form = ref<UserValidation>()
 const alert = ref(false)
@@ -15,7 +16,7 @@ const validate = async () => {
     const data = await form.value?.validate()
 
     if (data?.valid) {
-      formStore.signIn().then(result => {
+      signIn().then(result => {
         if (!result) alert.value = true
       })
     }

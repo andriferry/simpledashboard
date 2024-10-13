@@ -8,6 +8,7 @@ import type { User } from '@/types/index'
 const userStore = useUsersStore()
 const router = useRouter()
 const { userLogin, dataUsers, formAdd, formUpdate } = storeToRefs(userStore)
+const { setCurrentUser, deletUser, updateUser, addUser } = userStore
 
 const editDialog = ref()
 const addDialog = ref()
@@ -28,7 +29,7 @@ const logout = () => {
 
 onMounted(() => {
   let getCurrentUser = JSON.parse(localStorage.getItem('currentUser') || '')
-  userStore.setCurrentUser(getCurrentUser)
+  setCurrentUser(getCurrentUser)
 })
 </script>
 
@@ -71,7 +72,7 @@ onMounted(() => {
                       Edit
                     </button>
                     <button
-                      @click="userStore.deletUser(data)"
+                      @click="deletUser(data)"
                       class="btn btn-error btn-sm text-white"
                     >
                       Delete
@@ -137,10 +138,7 @@ onMounted(() => {
           <button @click="editDialog.close()" class="btn">Close</button>
 
           <form method="dialog">
-            <button
-              @click="userStore.updateUser(formUpdate)"
-              class="btn btn-primary"
-            >
+            <button @click="updateUser(formUpdate)" class="btn btn-primary">
               Update
             </button>
           </form>
@@ -220,7 +218,7 @@ onMounted(() => {
           <button @click="addDialog.close()" class="btn">Close</button>
 
           <form method="dialog">
-            <button @click="userStore.addUser(formAdd)" class="btn btn-primary">
+            <button @click="addUser(formAdd)" class="btn btn-primary">
               Update
             </button>
           </form>
